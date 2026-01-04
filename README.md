@@ -1,5 +1,7 @@
 # ccenv
 
+![Demo](assets/demo.gif)
+
 Claude Code Environment Manager. `ccenv` lets you swap logical working states in a single Git checkout without worktrees.
 
 ## Requirements
