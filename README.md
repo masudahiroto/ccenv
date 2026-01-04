@@ -10,7 +10,11 @@ Claude Code Environment Manager. `ccenv` lets you swap logical working states in
 
 ## Install
 
-Clone the repo and run via Bun:
+```bash
+curl -fsSL https://raw.githubusercontent.com/masudahiroto/ccenv/main/install.sh | bash
+```
+
+Or manually clone the repo and run via Bun:
 
 ```sh
 bun ./src/ccenv.ts --help

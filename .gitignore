@@ -1,1 +1,3 @@
 .ccenv/
+.gemini/
+node_modules/
