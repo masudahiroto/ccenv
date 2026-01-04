@@ -11,12 +11,13 @@ type CmdResult = {
 	exitCode: number;
 };
 
-async function runCmd(cmd: string[], cwd: string): Promise<CmdResult> {
+async function runCmd(cmd: string[], cwd: string, env: Record<string, string> = {}): Promise<CmdResult> {
 	const proc = Bun.spawn({
 		cmd,
 		cwd,
 		stdout: "pipe",
 		stderr: "pipe",
+		env: { ...process.env, ...env },
 	});
 	const [stdout, stderr, exitCode] = await Promise.all([
 		Bun.readableStreamToText(proc.stdout),
@@ -30,8 +31,8 @@ async function runGit(args: string[], cwd: string): Promise<CmdResult> {
 	return await runCmd(["git", ...args], cwd);
 }
 
-async function runCcenv(args: string[], cwd: string): Promise<CmdResult> {
-	return await runCmd(["bun", CLI_PATH, ...args], cwd);
+async function runCcenv(args: string[], cwd: string, env: Record<string, string> = {}): Promise<CmdResult> {
+	return await runCmd(["bun", CLI_PATH, ...args], cwd, env);
 }
 
 async function makeRepo(): Promise<string> {
@@ -115,7 +116,7 @@ describe("ccenv list & delete", () => {
 		expect(delResult.exitCode).toBe(1);
 		expect(delResult.stderr).toContain("Cannot delete active environment");
 
-		await runCcenv(["exit"], repo);
+		await runCcenv(["exit"], repo, { CCENV_ACTIVE: "env-active" });
 		// Now can delete
 		const delResult2 = await runCcenv(["delete", "env-active"], repo);
 		expect(delResult2.exitCode).toBe(0);
