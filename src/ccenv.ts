@@ -705,6 +705,10 @@ async function main(): Promise<void> {
 			if (!name) throw new Error("Missing environment name.");
 			const empty = rest.includes("--empty");
 			await createEnv(name, { empty });
+			console.log(
+				`Successfully generated environment '${name}'. You can activate this environment by running:`,
+			);
+			console.log(`  eval "$(ccenv activate ${name})"`);
 			return;
 		}
 		case "list": {
