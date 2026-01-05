@@ -11,7 +11,11 @@ type CmdResult = {
 	exitCode: number;
 };
 
-async function runCmd(cmd: string[], cwd: string, env: Record<string, string> = {}): Promise<CmdResult> {
+async function runCmd(
+	cmd: string[],
+	cwd: string,
+	env: Record<string, string> = {},
+): Promise<CmdResult> {
 	const proc = Bun.spawn({
 		cmd,
 		cwd,
@@ -31,7 +35,11 @@ async function runGit(args: string[], cwd: string): Promise<CmdResult> {
 	return await runCmd(["git", ...args], cwd);
 }
 
-async function runCcenv(args: string[], cwd: string, env: Record<string, string> = {}): Promise<CmdResult> {
+async function runCcenv(
+	args: string[],
+	cwd: string,
+	env: Record<string, string> = {},
+): Promise<CmdResult> {
 	return await runCmd(["bun", CLI_PATH, ...args], cwd, env);
 }
 
