@@ -49,7 +49,7 @@ ccenv enter
 Run a one-off command inside an environment:
 
 ```sh
-ccenv run --env feature-a sh -c "echo hello > example.txt"
+ccenv run --env feature-a -- sh -c "echo hello > example.txt"
 ```
 
 Apply environment changes onto the current workspace:
@@ -57,6 +57,42 @@ Apply environment changes onto the current workspace:
 ```sh
 ccenv apply feature-a
 ```
+
+Check system status:
+
+```sh
+ccenv status
+```
+
+Update ccenv to the latest version:
+
+```sh
+ccenv update
+```
+
+## AI Agent Integration
+
+`ccenv` can automatically manage environments for AI agents to prevent them from conflicting with your manual work or each other.
+
+### Google Gemini CLI
+
+Install hooks for `gemini-cli`:
+
+```sh
+ccenv install gemini-cli
+```
+
+This configures `.gemini/settings.json` to automatically `enter` the active environment before tools run and `exit` afterwards.
+
+### Claude Code
+
+Install hooks for `claude-code`:
+
+```sh
+ccenv install claude-code
+```
+
+This configures `.claude/settings.json` to ensure Claude works safely within the `ccenv` managed environment.
 
 ## How it works
 
